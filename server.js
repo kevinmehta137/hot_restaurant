@@ -14,7 +14,14 @@ var PORT = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var tables = [];
+var tables = [
+  {
+    name: "jason",
+    email: "jason@gmail.com",
+    phone: "310-777-7777",
+    ID: 2345
+  }
+];
 
 
 // Basic route that sends the user first to the AJAX Page
@@ -33,7 +40,7 @@ app.get("/view", function(req, res) {
   });
   
   // Displays all tables
-  app.get("/.form-group", function(req, res) {
+  app.get("/api/tables", function(req, res) {
     return res.json(tables);
   });
   
@@ -53,7 +60,7 @@ app.get("/view", function(req, res) {
   });
 
   // Create table - takes in JSON input
-app.post("/.form-group", function(req, res) {
+app.post("/api/tables", function(req, res) {
   // req.body hosts is equal to the JSON post sent from the user
   // This works because of our body-parser middleware
   var newtable = req.body;
