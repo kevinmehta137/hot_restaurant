@@ -3,7 +3,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
-var jquery = require("jquery");
+
 
 // Sets up the Express App
 // =============================================================
@@ -18,13 +18,22 @@ var tables = [];
 
 
 // Basic route that sends the user first to the AJAX Page
-app.get("/", function(req, res) {
+app.get("/home", function(req, res) {
    
     res.sendFile(path.join(__dirname, "home.html"));
   });
+app.get("/make", function(req, res) {
+   
+    res.sendFile(path.join(__dirname, "make.html"));
+  });
+  
+app.get("/view", function(req, res) {
+   
+    res.sendFile(path.join(__dirname, "view.html"));
+  });
   
   // Displays all tables
-  app.get("/api/patrons", function(req, res) {
+  app.get("/.form-group", function(req, res) {
     return res.json(tables);
   });
   
@@ -44,14 +53,14 @@ app.get("/", function(req, res) {
   });
 
   // Create table - takes in JSON input
-app.post("/api/patrons", function(req, res) {
+app.post("/.form-group", function(req, res) {
   // req.body hosts is equal to the JSON post sent from the user
   // This works because of our body-parser middleware
   var newtable = req.body;
 
   // Using a RegEx Pattern to remove spaces from newCharacter
   // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-  newcharacter.routeName = newtable.name.replace(/\s+/g, "").toLowerCase();
+  newtable.routeName = newtable.name.replace(/\s+/g, "").toLowerCase();
 
   console.log(newtable);
 
