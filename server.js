@@ -3,6 +3,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
+var jquery = require("jquery");
 
 // Sets up the Express App
 // =============================================================
@@ -14,8 +15,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 var tables = [];
-
-
 
 
 // Basic route that sends the user first to the AJAX Page
@@ -43,3 +42,29 @@ app.get("/", function(req, res) {
   
     return res.json(false);
   });
+
+  // Create table - takes in JSON input
+app.post("/api/patrons", function(req, res) {
+  // req.body hosts is equal to the JSON post sent from the user
+  // This works because of our body-parser middleware
+  var newtable = req.body;
+
+  // Using a RegEx Pattern to remove spaces from newCharacter
+  // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+  newcharacter.routeName = newtable.name.replace(/\s+/g, "").toLowerCase();
+
+  console.log(newtable);
+
+  tables.push(newtable);
+
+  res.json(newtable);
+});
+
+
+
+// Starts the server to begin listening
+// =============================================================
+app.listen(PORT, function() {
+  console.log("App listening on PORT " + PORT);
+});
+
